@@ -1,5 +1,5 @@
 # TO RUN THIS SCRIPT:
-# Run the following commands:
+# Run the following commands from the main project directory:
 
 # pip install pandas scikit-learn
 # python scripts/preprocess.py
@@ -57,7 +57,7 @@ def preprocess_dataset(input_csv, output_csv, sample_size=100):
         df_subset = df_subset.sample(n=sample_size, random_state=42)
     
     df_subset.to_csv(output_csv, index=False)
-    print(f"Saved {len(df_subset)} preprocessed samples to {output_csv}")
+    print(f"Saved {len(df_subset)} preprocessed samples to {os.path.basename(output_csv)}")
 
 if __name__ == "__main__":
     # Locates directories relative to this script
