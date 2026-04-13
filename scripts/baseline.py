@@ -6,6 +6,8 @@ from sklearn.metrics import accuracy_score
 train = pd.read_csv('data/train_preprocessed.csv')
 test = pd.read_csv('data/test_preprocessed.csv')
 
+# X- inputs and Y- answers  
+# 0 for normal and 1 for attack 
 X_train = train.drop('label', axis=1)
 y_train = train['label']
 
