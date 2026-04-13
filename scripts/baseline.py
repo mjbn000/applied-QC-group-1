@@ -26,3 +26,6 @@ print("Baseline Accuracy:", acc)
 
 # got baseline accuracy of 0.64
 # 0.64 * 25= 16 out of 25 correct
+
+# Commands run python scripts/preprocess.py
+# python scripts/baseline.py
