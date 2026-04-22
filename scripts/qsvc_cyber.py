@@ -17,8 +17,10 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler
 from matplotlib import pyplot as plt
 
+'''
+This script will compare classical SVC to QSVC analysis of the cybersecurity attack dataset. 
 
-
+'''
 algorithm_globals.random_seed = 123
 
 train_df = pd.read_csv("./../data/train_preprocessed.csv")
