@@ -76,5 +76,6 @@ if __name__ == "__main__":
     test_output = os.path.join(output_dir, 'test_preprocessed.csv')
 
     # Sample size for the train and test sets can be adjusted
+    # We use a ratio of 5:1
     preprocess_dataset(train_input, train_output, sample_size=500)
     preprocess_dataset(test_input, test_output, sample_size=100)
