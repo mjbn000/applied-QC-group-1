@@ -74,8 +74,6 @@ if __name__ == "__main__":
     train_output = os.path.join(output_dir, 'train_preprocessed.csv')
     test_output = os.path.join(output_dir, 'test_preprocessed.csv')
 
-    preprocess_dataset(train_input, train_output, sample_size=100)
-    preprocess_dataset(test_input, test_output, sample_size=25)
     # Sample size for the train and test sets can be adjusted
     preprocess_dataset(train_input, train_output, sample_size=1000)
     preprocess_dataset(test_input, test_output, sample_size=200)
