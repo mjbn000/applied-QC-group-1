@@ -1,25 +1,54 @@
 # -*- coding: utf-8 -*-
 
-# !pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms matplotlib pylatexenc seaborn --quiet
+# !pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas bcolors
 
-import pandas as pd
-import time
-from qiskit.circuit.library import ZZFeatureMap
-from qiskit_machine_learning.utils import algorithm_globals
-from qiskit.primitives import StatevectorSampler as Sampler
-from qiskit_algorithms.state_fidelities import ComputeUncompute
-from qiskit_machine_learning.kernels import FidelityQuantumKernel
-from qiskit_machine_learning.algorithms import QSVC
-from sklearn.decomposition import PCA
+try:
+    import time
+    import sys
+    import pandas as pd
+    from qiskit.circuit.library import zz_feature_map
+    from qiskit_machine_learning.utils import algorithm_globals
+    from qiskit.primitives import StatevectorSampler as Sampler
+    from qiskit_algorithms.state_fidelities import ComputeUncompute
+    from qiskit_machine_learning.kernels import FidelityQuantumKernel
+    from qiskit_machine_learning.algorithms import QSVC
+    from sklearn.decomposition import PCA
+    
+except ImportError as e:
+    print (f"Failed package: {e.name}")
+    print ("Make sure you have the required modules installed on your system.")
+    print ("Run pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas")
+    exit()
 
 '''
 This script will compare classical SVC to QSVC analysis of the cybersecurity attack dataset. 
 
+
+
+
 '''
 algorithm_globals.random_seed = 123
+if len(sys.argv) != 3:
+    print("please include the locations of the input csv files.")
+    print("ex: qsvc_cyber.py <train> <test>")
+    exit()
 
-train_df = pd.read_csv("./../data/train_preprocessed.csv")
-test_df  = pd.read_csv("./../data/test_preprocessed.csv")
+
+try:
+    train_df = pd.read_csv(sys.argv[1])
+except FileNotFoundError:
+    print(f"training path: {sys.argv[1]} not found")
+    exit()
+
+try:
+    test_df  = pd.read_csv(sys.argv[2])
+except FileNotFoundError:
+    print(f"testing path: {sys.argv[2]} not found")
+    exit()
+
+print("Starting script")
+print(f"Training Path: {sys.argv[1]}")
+print(f"Testing Path: {sys.argv[2]}")
 
 # Replace "label" with whatever the column is actually named -> conveniant because label our actual dataset target lol
 train_features = train_df.drop(columns=["label"]).values
@@ -34,7 +63,7 @@ test_features  = pca.transform(test_features)
 num_features = train_features.shape[1]  # 4
 
 # reps=2 gives a richer kernel than reps=1; 
-feature_map = ZZFeatureMap(feature_dimension=num_features, reps=2)
+feature_map = zz_feature_map(feature_dimension=num_features, reps=2)
 feature_map.decompose().draw(output='mpl', style='clifford', fold=20)
 
 # kernal creation 
