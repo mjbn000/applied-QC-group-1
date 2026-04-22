@@ -76,3 +76,5 @@ if __name__ == "__main__":
 
     preprocess_dataset(train_input, train_output, sample_size=100)
     preprocess_dataset(test_input, test_output, sample_size=25)
+    preprocess_dataset(train_input, train_output, sample_size=1000)
+    preprocess_dataset(test_input, test_output, sample_size=200)
