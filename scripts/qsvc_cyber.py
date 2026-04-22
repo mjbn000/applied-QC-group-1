@@ -21,8 +21,8 @@ from matplotlib import pyplot as plt
 
 algorithm_globals.random_seed = 123
 
-train_df = pd.read_csv("/content/train_preprocessed.csv")
-test_df  = pd.read_csv("/content/test_preprocessed.csv")
+train_df = pd.read_csv("./../data/train_preprocessed.csv")
+test_df  = pd.read_csv("./../data/test_preprocessed.csv")
 
 # Replace "label" with whatever the column is actually named -> conveniant because label our actual dataset target lol
 train_features = train_df.drop(columns=["label"]).values
