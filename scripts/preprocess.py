@@ -68,6 +68,7 @@ if __name__ == "__main__":
     # Ensure the output 'data' directory exists
     os.makedirs(output_dir, exist_ok=True)
     
+    # This uses the Train+ and Test+ files from the dataset's directory
     train_input = os.path.join(data_dir, 'KDDTrain+.txt')
     test_input = os.path.join(data_dir, 'KDDTest+.txt')
 
