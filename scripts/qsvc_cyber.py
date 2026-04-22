@@ -24,7 +24,7 @@ algorithm_globals.random_seed = 123
 train_df = pd.read_csv("/content/train_preprocessed.csv")
 test_df  = pd.read_csv("/content/test_preprocessed.csv")
 
-# Replace "label" with whatever your target column is actually named
+# Replace "label" with whatever the column is actually named -> conveniant because label our actual dataset target lol
 train_features = train_df.drop(columns=["label"]).values
 train_labels   = train_df["label"].values
 test_features  = test_df.drop(columns=["label"]).values
@@ -48,12 +48,12 @@ test_score_c4  = svc.score(test_features,  test_labels)
 print(f'Classical SVC on the training dataset: {train_score_c4:.2f}')
 print(f'Classical SVC on the test dataset:     {test_score_c4:.2f}')
 
-# Build quantum kernel from the feature map (replaces ansatz + optimizer + sampler in VQC)
+# kernal creation 
 sampler  = Sampler()
 fidelity = ComputeUncompute(sampler=sampler)
 quantum_kernel = FidelityQuantumKernel(fidelity=fidelity, feature_map=feature_map)
 
-# Fit QSVC — no iterative optimisation loop, kernel matrix is computed once
+# kernel matrix is computed once
 qsvc = QSVC(quantum_kernel=quantum_kernel)
 
 start = time.time()
@@ -86,7 +86,7 @@ print(f'Classical SVC on test dataset     (2 features): {test_score_c2:.2f}')
 
 num_features_2 = features_2.shape[1]  # 2
 
-# Rebuild feature map for 2 qubits
+# Rebuild feature map for 4 qubits
 feature_map_2  = ZZFeatureMap(feature_dimension=num_features_2, reps=2)
 fidelity_2     = ComputeUncompute(sampler=Sampler())
 quantum_kernel_2 = FidelityQuantumKernel(fidelity=fidelity_2, feature_map=feature_map_2)
