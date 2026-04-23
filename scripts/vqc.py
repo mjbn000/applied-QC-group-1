@@ -1,3 +1,5 @@
+
+# pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas
 import pandas as pd
 from sklearn.decomposition import PCA
 
