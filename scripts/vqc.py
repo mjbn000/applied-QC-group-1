@@ -1,7 +1,9 @@
 
 # pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas
+import time 
 import pandas as pd
 from sklearn.decomposition import PCA
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 from qiskit.circuit.library import zz_feature_map, real_amplitudes
 from qiskit_machine_learning.algorithms import VQC
@@ -43,9 +45,30 @@ vqc = VQC(
 )
 
 # Train
+start_train = time.time()
 vqc.fit(X_train, y_train)
+train_time = time.time() - start_train 
 
 # Test
-score = vqc.score(X_test, y_test)
+train_score = vqc.score(X_train, y_train)
+test_score = vqc.score(X_test, y_test)
 
-print("VQC Test Accuracy:", score)
+#prediction 
+preds = vqc.predict(X_test)
+
+# Extra evaluation metrics
+acc = accuracy_score(y_test, preds)  
+prec = precision_score(y_test, preds, zero_division=0)  
+rec = recall_score(y_test, preds, zero_division=0) 
+f1 = f1_score(y_test, preds, zero_division=0) 
+
+# Print results
+print("VQC Results")  
+print("Train Accuracy:", train_score)  
+print("Test Accuracy:", test_score)  
+print("Training Time:", round(train_time, 2), "seconds")  
+
+print("Accuracy:", acc)  
+print("Precision:", prec)  
+print("Recall:", rec)  
+print("F1 Score:", f1)  
