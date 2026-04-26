@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
-# Paths from proejct roots
+# Paths from project roots
 train = pd.read_csv('data/train_preprocessed.csv')
 test = pd.read_csv('data/test_preprocessed.csv')
 
@@ -28,7 +28,8 @@ print("Baseline Accuracy:", acc)
 
 # got baseline accuracy of 0.64
 # 0.64 * 25= 16 out of 25 correct
-# Accuracy: 0.67 - 500 preprocessed samples
+# after changing number of preprocessed samples from 1000 to 500,
+# baseline accurace is now: 0.67
 
 # Commands run python scripts/preprocess.py
 # python scripts/baseline.py
