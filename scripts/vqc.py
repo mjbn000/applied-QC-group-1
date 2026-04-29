@@ -54,7 +54,7 @@ X_test = pca.transform(X_test)
 num_features = X_train.shape[1]
 
 # Feature map + ansatz
-feature_map = zz_feature_map(feature_dimension=num_features, reps=1)
+feature_map = zz_feature_map(feature_dimension=num_features, reps=2)
 ansatz = real_amplitudes(num_qubits=num_features, reps=2)
 
 # Optimizer 
