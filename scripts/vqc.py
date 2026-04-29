@@ -1,18 +1,45 @@
+# !pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas
 
-# pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas
-import time 
-import pandas as pd
-from sklearn.decomposition import PCA
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+try:
+    import time
+    import sys
+    import pandas as pd
+    from sklearn.decomposition import PCA
+    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+    from qiskit.circuit.library import zz_feature_map, real_amplitudes
+    from qiskit_machine_learning.utils import algorithm_globals
+    from qiskit_machine_learning.algorithms import VQC
+    from qiskit_algorithms.optimizers import COBYLA
+    from qiskit.primitives import StatevectorSampler as Sampler
 
-from qiskit.circuit.library import zz_feature_map, real_amplitudes
-from qiskit_machine_learning.algorithms import VQC
-from qiskit_algorithms.optimizers import COBYLA
-from qiskit.primitives import StatevectorSampler as Sampler
+except ImportError as e:
+    print (f"Failed package: {e.name}")
+    print ("Make sure you have the required modules installed on your system.")
+    print ("Run pip install qiskit qiskit-aer qiskit-machine-learning qiskit-algorithms scikit-learn pandas")
+    exit()
 
-# Load data
-train = pd.read_csv("data/train_preprocessed.csv")
-test = pd.read_csv("data/test_preprocessed.csv")
+algorithm_globals.random_seed = 123
+
+if len(sys.argv) != 3:
+    print("please include the locations of the input csv files.")
+    print("ex: vqc.py <train> <test>")
+    exit()
+
+try:
+    train = pd.read_csv(sys.argv[1])
+except FileNotFoundError:
+    print(f"training path: {sys.argv[1]} not found")
+    exit()
+
+try:
+    test  = pd.read_csv(sys.argv[2])
+except FileNotFoundError:
+    print(f"testing path: {sys.argv[2]} not found")
+    exit()
+
+print("Starting script")
+print(f"Training Path: {sys.argv[1]}")
+print(f"Testing Path: {sys.argv[2]}")
 
 X_train = train.drop(columns=["label"]).values
 y_train = train["label"].values
@@ -27,7 +54,7 @@ X_test = pca.transform(X_test)
 num_features = X_train.shape[1]
 
 # Feature map + ansatz
-feature_map = zz_feature_map(feature_dimension=num_features, reps=1)
+feature_map = zz_feature_map(feature_dimension=num_features, reps=2)
 ansatz = real_amplitudes(num_qubits=num_features, reps=1)
 
 # Optimizer 
