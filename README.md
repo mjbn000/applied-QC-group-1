@@ -17,7 +17,7 @@ https://www.kaggle.com/datasets/hassan06/nslkdd
 
 3. Run the QSVC and QVC scripts in your preferred order.
 
-4. Evaluate your results, or adjust the subsets and QML scripts as desired. Examples:
+4. Evaluate your results, or adjust the subsets and QML scripts for further testing. Examples:
 - Changing the sample_size parameter in preprocessing.py for a desired sample ratio.
 - Selecting a different number of features to reduce the subsets to.
 - Modifying the reps parameter in both QML scripts.
