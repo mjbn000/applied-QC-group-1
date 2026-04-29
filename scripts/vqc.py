@@ -45,13 +45,19 @@ vqc = VQC(
 )
 
 # Train
+print("Beginning VQC Training...")
 start_train = time.time()
 vqc.fit(X_train, y_train)
 train_time = time.time() - start_train 
+print(f'Training time: {round(train_time)} seconds')
 
 # Test
+print("Beginning VQC Scoring...")
+start_score = time.time()
 train_score = vqc.score(X_train, y_train)
 test_score = vqc.score(X_test, y_test)
+score_time = time.time() - start_score
+print(f'Scoring time: {round(score_time)} seconds')
 
 #prediction 
 preds = vqc.predict(X_test)
@@ -63,12 +69,15 @@ rec = recall_score(y_test, preds, zero_division=0)
 f1 = f1_score(y_test, preds, zero_division=0) 
 
 # Print results
-print("VQC Results")  
-print("Train Accuracy:", train_score)  
-print("Test Accuracy:", test_score)  
-print("Training Time:", round(train_time, 2), "seconds")  
+print(f'VQC on training dataset (4 features): {train_score:.2f}')
+print(f'VQC on test dataset     (4 features): {test_score:.2f}')
 
-print("Accuracy:", acc)  
-print("Precision:", prec)  
-print("Recall:", rec)  
-print("F1 Score:", f1)  
+print(f"{'Model':<35} | {'Train Score':>10} | {'Test Score':>10}")
+print('-' * 62)
+print(f"{'VQC, 4 features, ZZFeatureMap':<35} | {train_score:>10.2f} | {test_score:>10.2f}")
+
+print(f"\nAdditional Metrics:")
+print(f"Accuracy:  {acc:.2f}")  
+print(f"Precision: {prec:.2f}")  
+print(f"Recall:    {rec:.2f}")  
+print(f"F1 Score:  {f1:.2f}")

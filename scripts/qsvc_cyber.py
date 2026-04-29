@@ -74,7 +74,7 @@ quantum_kernel = FidelityQuantumKernel(fidelity=fidelity, feature_map=feature_ma
 # kernel matrix is computed once
 qsvc = QSVC(quantum_kernel=quantum_kernel)
 
-print("Beginning QSVC Training..")
+print("Beginning QSVC Training...")
 start = time.time()
 qsvc.fit(train_features, train_labels)
 
